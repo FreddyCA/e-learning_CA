@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import BlogImgBg from "../components/BlogImgBg";
-import BlogText from "../components/BlogText";
 import ButtonPrimary from "../components/ButtonPrimary";
+import HeaderText from "../components/HeaderText";
+import HeaderImgBg from "../components/HeaderImgBg";
 
-const BlogStyleContentStyle = styled.div`
+const HeaderStyleContentStyle = styled.div`
   background-color: var(--color--bgPrincipal);
   width: 100vw;
   height: calc(100vh - 100px);
@@ -11,7 +11,7 @@ const BlogStyleContentStyle = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const BlogStyle = styled.div`
+const HeaderStyle = styled.div`
   width: 992px;
   padding: 2rem;
   display: flex;
@@ -19,23 +19,23 @@ const BlogStyle = styled.div`
   justify-content: space-between;
 `;
 
-const BlogContentInfoStyle = styled.div`
+const HeaderContentInfoStyle = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 3rem;
 `;
-const Blog = () => {
+const Header = () => {
   return (
-    <BlogStyleContentStyle>
-      <BlogStyle>
-        <BlogContentInfoStyle>
-          <BlogText />
+    <HeaderStyleContentStyle>
+      <HeaderStyle>
+        <HeaderContentInfoStyle>
+          <HeaderText />
           <ButtonPrimary />
-        </BlogContentInfoStyle>
-        <BlogImgBg />
-      </BlogStyle>
-    </BlogStyleContentStyle>
+        </HeaderContentInfoStyle>
+        <HeaderImgBg />
+      </HeaderStyle>
+    </HeaderStyleContentStyle>
   );
 };
 
-export default Blog;
+export default Header;

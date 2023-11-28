@@ -1,4 +1,4 @@
-import Blog from "./sections/Blog";
+import Header from "./sections/Header";
 import FAQs from "./sections/FAQs";
 import NavBar from "./sections/NavBar";
 import GlobalStyle from "./style/reset";
@@ -8,7 +8,7 @@ const App = () => {
     <>
       <GlobalStyle />
       <NavBar></NavBar>
-      <Blog></Blog>
+      <Header></Header>
       <h3>hola</h3>
       <FAQs></FAQs>
     </>
