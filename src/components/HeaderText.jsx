@@ -9,6 +9,7 @@ const HeaderTitleStyle = styled.h1`
 const HeaderInfoStyle = styled.h2`
   font-size: 1rem;
   font-weight: 400;
+  line-height: 1.4rem;
   color: var(--color--textPrimary);
   margin: 2rem 0 3rem;
 `;

@@ -5,8 +5,7 @@ import HeaderImgBg from "../components/HeaderImgBg";
 
 const HeaderStyleContentStyle = styled.div`
   background-color: var(--color--bgPrincipal);
-  width: 100vw;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 90px);
   display: flex;
   align-items: center;
   justify-content: center;

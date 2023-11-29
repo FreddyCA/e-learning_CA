@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 const SectionContentStyle = styled.div`
   max-width: 992px;
   margin: 0 auto;
-  background-color: red;
   padding: 0 2rem;
 `;
 const SectionContent = ({ children }) => {

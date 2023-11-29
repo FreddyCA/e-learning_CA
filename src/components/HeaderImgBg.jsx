@@ -2,8 +2,8 @@ import styled from "styled-components";
 import imgHeader from "../assets/svg/headerImg.svg";
 
 const HeaderImgBgStyle = styled.img`
-  width: 400px;
-  height: 250px;
+  width: 420px;
+  height: 270px;
 `;
 
 const HeaderImgBg = () => {
