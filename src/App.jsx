@@ -5,6 +5,8 @@ import GlobalStyle from "./style/reset";
 import Benefits from "./sections/Benefits";
 import AboutUs from "./sections/AboutUs";
 import CourseRecommendations from "./sections/CourseRecommendations";
+import Testimonies from "./sections/Testimonies";
+import Registration from "./sections/Registration";
 
 const App = () => {
   return (
@@ -15,9 +17,9 @@ const App = () => {
       <Benefits></Benefits>
       <AboutUs></AboutUs>
       <CourseRecommendations></CourseRecommendations>
-
+      <Testimonies></Testimonies>
       <FAQs></FAQs>
-      {/* hacer las faqs */}
+      <Registration></Registration>
     </>
   );
 };
