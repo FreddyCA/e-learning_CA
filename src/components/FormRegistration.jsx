@@ -135,7 +135,6 @@ const FormRegistration = () => {
   const [loadingForm, setLoadingForm] = useState(false);
   const [succesForm, setSuccesForm] = useState(false);
 
-  console.log(statusSubmit);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

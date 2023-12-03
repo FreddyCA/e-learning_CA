@@ -7,6 +7,7 @@ import AboutUs from "./sections/AboutUs";
 import CourseRecommendations from "./sections/CourseRecommendations";
 import Testimonies from "./sections/Testimonies";
 import Registration from "./sections/Registration";
+import Footer from "./sections/Footer";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
       <Testimonies></Testimonies>
       <FAQs></FAQs>
       <Registration></Registration>
+      <Footer></Footer>
     </>
   );
 };
