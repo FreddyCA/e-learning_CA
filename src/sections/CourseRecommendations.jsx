@@ -68,7 +68,7 @@ const CourseRecommendations = () => {
   ];
   return (
     <SectionContent>
-      <CourseRecommendationsStyle>
+      <CourseRecommendationsStyle id="Cursos">
         <CourseRecommendationsTitle>
           <Subtitle>Recomendaciones de cursos Para ti</Subtitle>
           <CourseRecButtons />

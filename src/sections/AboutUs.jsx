@@ -14,7 +14,7 @@ const AboutUsStyle = styled.div`
 const AboutUs = () => {
   return (
     <SectionContent>
-      <AboutUsStyle>
+      <AboutUsStyle id="acercaDeNosotros">
         <AboutUsText></AboutUsText>
         <ResizableImage
           src={aboutUsImg}

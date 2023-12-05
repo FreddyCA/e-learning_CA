@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const ButtonPrimaryStyle = styled.button`
   padding: 1rem;
@@ -18,8 +19,13 @@ const ButtonPrimaryStyle = styled.button`
     border: 1px solid var(--color--btnPrimary);
   }
 `;
-const ButtonPrimary = () => {
-  return <ButtonPrimaryStyle>Ver Cursos</ButtonPrimaryStyle>;
+const ButtonPrimary = ({text}) => {
+  return <ButtonPrimaryStyle>{text}</ButtonPrimaryStyle>;
 };
+
+ButtonPrimary.propTypes = {
+  text: PropTypes.string,
+};
+
 
 export default ButtonPrimary;

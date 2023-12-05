@@ -52,7 +52,7 @@ const FAQs = () => {
 
   return (
     <SectionContent>
-      <FAQsStyle>
+      <FAQsStyle id="FAQs">
         <ContentMedium
           title1="Preguntas"
           title2="Frecuentes"

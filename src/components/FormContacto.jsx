@@ -5,7 +5,7 @@ import passwordOnImg from "../assets/png/passwordOn.png";
 import validations from "../utils/validations";
 import marcaCheck from "../assets/svg/marcaCheck.svg";
 
-const FormRegistrationStyle = styled.div`
+const FormContactoStyle = styled.div`
   background-color: rgb(28, 30, 83);
   padding: 3rem;
   width: 100%;
@@ -14,7 +14,7 @@ const FormRegistrationStyle = styled.div`
   gap: 1rem;
 `;
 
-const FormRegistrationText = styled.p`
+const FormContactoText = styled.p`
   color: var(--color--textPrimary);
 
   ${(props) =>
@@ -39,13 +39,13 @@ const FormRegistrationText = styled.p`
     `}
 `;
 
-const FormRegStyle = styled.form`
+const FormCntStyle = styled.form`
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
 `;
 
-const FormRegInput = styled.input`
+const FormCntInput = styled.input`
   color: rgb(255, 255, 255, 0.9);
   width: 100%;
   background-color: rgb(18, 20, 73);
@@ -68,7 +68,7 @@ const FormRegInput = styled.input`
     font-size: 0.775rem;
   }
 `;
-const FormRegError = styled.span`
+const FormCntError = styled.span`
   color: orange;
   margin-bottom: 1rem;
   font-size: 0.875rem;
@@ -76,7 +76,7 @@ const FormRegError = styled.span`
   padding: 0 1rem;
 `;
 
-const FormRegButton = styled.button`
+const FormCntButton = styled.button`
   border: none;
   background-color: var(--color--btnPrimary);
   color: var(--color--textSecondary);
@@ -90,10 +90,10 @@ const FormRegButton = styled.button`
   gap: 1rem;
   cursor: pointer;
 `;
-const FormRegPassword = styled.label`
+const FormCntPassword = styled.label`
   display: flex;
 `;
-const FormRegPasswordContent = styled.div`
+const FormCntPasswordContent = styled.div`
   width: 40px;
   display: flex;
   justify-content: center;
@@ -106,7 +106,7 @@ const FormRegPasswordContent = styled.div`
     background-color: rgb(38, 40, 103);
   }
 `;
-const FormRegPasswordButton = styled.img`
+const FormCntPasswordButton = styled.img`
   width: 24px;
   height: 24px;
 `;
@@ -127,7 +127,7 @@ const evaluateErrors = (errors, setStatusSubmit) => {
   setStatusSubmit(valuesState);
 };
 
-const FormRegistration = () => {
+const FormContacto = () => {
   const [formData, setFormData] = useState(initialForm);
   const [statusPassword, setStatusPassword] = useState(true);
   const [errors, setErrors] = useState(initialErrors);
@@ -166,7 +166,7 @@ const FormRegistration = () => {
         setLoadingForm(false);
         setErrors(initialErrors);
         succesMsForm();
-      }, 5000);
+      }, 10000);
 
       // aplicar la fetch
     }
@@ -177,14 +177,14 @@ const FormRegistration = () => {
   }, [errors, statusSubmit]);
 
   return (
-    <FormRegistrationStyle>
-      <FormRegistrationText $principal>¡Regístrate!</FormRegistrationText>
-      <FormRegistrationText $secondary>
-        Prepárate para un futuro lleno de éxito
-      </FormRegistrationText>
+    <FormContactoStyle>
+      <FormContactoText $principal>Contacto</FormContactoText>
+      <FormContactoText $secondary>
+        Ante alguna duda mande un mensaje
+      </FormContactoText>
 
-      <FormRegStyle onSubmit={submitForm} autoComplete="on">
-        <FormRegInput
+      <FormCntStyle onSubmit={submitForm} autoComplete="on">
+        <FormCntInput
           type="text"
           name="name"
           placeholder="Escribe tu nombre"
@@ -192,8 +192,8 @@ const FormRegistration = () => {
           value={formData.name}
           autoComplete="off"
         />
-        {errors.name && <FormRegError>{errors.name}</FormRegError>}
-        <FormRegInput
+        {errors.name && <FormCntError>{errors.name}</FormCntError>}
+        <FormCntInput
           type="email"
           name="email"
           placeholder="Escribe tu Email"
@@ -201,10 +201,10 @@ const FormRegistration = () => {
           value={formData.email}
           autoComplete="off"
         />
-        {errors.email && <FormRegError>{errors.email}</FormRegError>}
+        {errors.email && <FormCntError>{errors.email}</FormCntError>}
 
-        <FormRegPassword>
-          <FormRegInput
+        <FormCntPassword>
+          <FormCntInput
             type={statusPassword ? "password" : "text"}
             name="password"
             placeholder="Escribe una contraseña"
@@ -213,27 +213,27 @@ const FormRegistration = () => {
             autoComplete="off"
           />
           {statusPassword ? (
-            <FormRegPasswordContent onClick={handleTogglePassword}>
-              <FormRegPasswordButton
+            <FormCntPasswordContent onClick={handleTogglePassword}>
+              <FormCntPasswordButton
                 src={passwordOnImg}
                 alt="icon password on"
               />
-            </FormRegPasswordContent>
+            </FormCntPasswordContent>
           ) : (
-            <FormRegPasswordContent onClick={handleTogglePassword}>
-              <FormRegPasswordButton
+            <FormCntPasswordContent onClick={handleTogglePassword}>
+              <FormCntPasswordButton
                 src={passwordOffImg}
                 alt="icon password off"
               />
-            </FormRegPasswordContent>
+            </FormCntPasswordContent>
           )}
-        </FormRegPassword>
-        {errors.password && <FormRegError>{errors.password}</FormRegError>}
+        </FormCntPassword>
+        {errors.password && <FormCntError>{errors.password}</FormCntError>}
 
         {loadingForm ? (
-          <FormRegButton>Enviando...</FormRegButton>
+          <FormCntButton>Enviando...</FormCntButton>
         ) : (
-          <FormRegButton type="submit">
+          <FormCntButton type="submit">
             Enviar{" "}
             {statusSubmit && (
               <img
@@ -242,25 +242,25 @@ const FormRegistration = () => {
                 style={{ width: "14px" }}
               />
             )}
-          </FormRegButton>
+          </FormCntButton>
         )}
 
         {succesForm ? (
-          <FormRegError>
-            Para completar su registro revise su email
-          </FormRegError>
+          <FormCntError>
+            Su mensaje fué enviando, nos pondremos en contacto lo mas pronto posible
+          </FormCntError>
         ) : (
           !statusSubmit && (
-            <FormRegError>*Todos los campos son requeridos.</FormRegError>
+            <FormCntError>*Todos los campos son requeridos.</FormCntError>
           )
         )}
-      </FormRegStyle>
+      </FormCntStyle>
 
-      <FormRegistrationText $finally>
+      {/* <FormContactoText $finally>
         ¿Ya tienes una cuenta? Iniciar sesión
-      </FormRegistrationText>
-    </FormRegistrationStyle>
+      </FormContactoText> */}
+    </FormContactoStyle>
   );
 };
 
-export default FormRegistration;
+export default FormContacto;

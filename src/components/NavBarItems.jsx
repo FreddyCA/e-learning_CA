@@ -1,4 +1,5 @@
-import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const NavBarItemsContentStyle = styled.div`
   display: flex;
@@ -12,6 +13,21 @@ const NavBarItemsStyle = styled.div`
   position: relative;
 `;
 
+const NavBarItemsLoginStyle = styled.div`
+  color: var(--color--textPrimary);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 1rem;
+  white-space: nowrap;
+  border-radius: 5px;
+  border: 1px solid var(--color--textPrimary);
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: var(--color--textPrimary);
+    color: var(--color--bgPrincipal);
+  }
+`;
+
 const NavBarItemsLinkStyle = styled.a`
   color: var(--color--textPrimary);
   text-decoration: none;
@@ -19,68 +35,55 @@ const NavBarItemsLinkStyle = styled.a`
   padding: 1rem;
   white-space: nowrap;
   cursor: pointer;
-
-  ${(props) =>
-    props.$signUp &&
-    css`
-      border-radius: 5px;
-      border: 1px solid var(--color--textPrimary);
-      transition: all 0.3s ease;
-      &:hover {
-        background-color: var(--color--textPrimary);
-        color: var(--color--bgPrincipal);
-      }
-    `}
-  ${(props) =>
-    !props.$signUp &&
-    css`
-      overflow: hidden;
-      &::before,
-      &::after {
-        content: "";
-        position: absolute;
-        width: 0;
-        left: 50%;
-        background-color: var(--color--textPrimary);
-        transition: width 0.3s ease;
-      }
-      &::before {
-        top: 0;
-        transform: translateX(-50%);
-        height: 2.5px;
-      }
-      &::after {
-        bottom: 0;
-        transform: translateX(-50%);
-        height: 2.5px;
-      }
-      &:hover::before,
-      &:hover::after {
-        width: 100%;
-      }
-    `}
+  overflow: hidden;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    left: 50%;
+    background-color: var(--color--textPrimary);
+    transition: width 0.3s ease;
+  }
+  &::before {
+    top: 0;
+    transform: translateX(-50%);
+    height: 2.5px;
+  }
+  &::after {
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 2.5px;
+  }
+  &:hover::before,
+  &:hover::after {
+    width: 100%;
+  }
 `;
 const NavBarItems = () => {
   return (
     <NavBarItemsContentStyle>
       <NavBarItemsStyle>
-        <NavBarItemsLinkStyle>Inicio</NavBarItemsLinkStyle>
+        <NavBarItemsLinkStyle href="#Cursos">Cursos</NavBarItemsLinkStyle>
       </NavBarItemsStyle>
       <NavBarItemsStyle>
-        <NavBarItemsLinkStyle>Clases</NavBarItemsLinkStyle>
+        <NavBarItemsLinkStyle href="#acercaDeNosotros">
+          Acerca de Nosotros
+        </NavBarItemsLinkStyle>
       </NavBarItemsStyle>
       <NavBarItemsStyle>
-        <NavBarItemsLinkStyle>Planes</NavBarItemsLinkStyle>
+        <NavBarItemsLinkStyle href="#FAQs">
+          Preguntas Frecuentes
+        </NavBarItemsLinkStyle>
       </NavBarItemsStyle>
       <NavBarItemsStyle>
-        <NavBarItemsLinkStyle href="#">Acerca de Nosotros</NavBarItemsLinkStyle>
+        <NavBarItemsLinkStyle href="#Contacto">Contacto</NavBarItemsLinkStyle>
       </NavBarItemsStyle>
-      <NavBarItemsStyle>
-        <NavBarItemsLinkStyle>Iniciar Sesión</NavBarItemsLinkStyle>
-      </NavBarItemsStyle>
-      <NavBarItemsStyle>
-        <NavBarItemsLinkStyle $signUp>Registrarse</NavBarItemsLinkStyle>
-      </NavBarItemsStyle>
+      <Link to="/login" style={{ textDecoration: "none" }}>
+        <NavBarItemsStyle>
+          <NavBarItemsLoginStyle>Iniciar Sesión</NavBarItemsLoginStyle>
+        </NavBarItemsStyle>
+      </Link>
     </NavBarItemsContentStyle>
   );
 };
