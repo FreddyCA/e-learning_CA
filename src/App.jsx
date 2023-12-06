@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Curso from "./pages/Curso";
 import UserPanel from "./pages/UserPanel";
 import { AuthProvider } from "./context/authContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 // import AuthProvider from "./context/authContext";
 
 const App = () => {
@@ -18,7 +19,14 @@ const App = () => {
           <Route path="/curso:" element={<Curso />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/panelUser" element={<UserPanel />} />
+          <Route
+            path="/panelUser"
+            element={
+              <ProtectedRoute>
+                <UserPanel />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </AuthProvider>
     </>

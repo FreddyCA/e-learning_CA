@@ -7,6 +7,8 @@ import Header from "../sections/Header";
 import NavBar from "../sections/NavBar";
 import Testimonies from "../sections/Testimonies";
 import Contacto from "../sections/Contacto";
+
+
 import { useAuth } from "../context/authContext";
 
 const Home = () => {

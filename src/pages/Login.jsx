@@ -25,7 +25,7 @@ const Login = () => {
       await login(user.email, user.password);
       setError("Bienvenido");
       setTimeout(() => {
-        navigate("/");
+        navigate("/panelUser");
       }, 5000);
     } catch (error) {
       console.log(error.message);
@@ -38,9 +38,23 @@ const Login = () => {
       // }
     }
   };
+  const handleHome = () => {
+    navigate("/");
+  };
   return (
     <>
       <div>Login de usuarios</div>
+      <div
+        onClick={handleHome}
+        style={{
+          backgroundColor: "skyblue",
+          padding: "2rem",
+          cursor: "pointer",
+          width:"min-content"
+        }}
+      >
+        Volver
+      </div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
