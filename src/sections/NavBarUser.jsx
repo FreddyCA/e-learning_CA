@@ -1,40 +1,25 @@
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/authContext";
+import styled from "styled-components";
+import NavBarLogo from "../components/NavBarLogo";
+import ButtonPrimary from "../components/ButtonPrimary";
+import LinkContent from "../components/LinkContent";
+
+const NavBarUserStyle = styled.div`
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4rem;
+  border-bottom: 5px solid #004080;
+`;
 
 const NavBarUser = () => {
-  const { logout } = useAuth();
-
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    console.log("serrar sesion desde panel de usuarios");
-    await logout();
-    navigate("/");
-  };
   return (
-    <div
-      style={{
-        backgroundColor: "#000",
-        color: "#fff",
-        height: "100px",
-        display: "flex",
-        gap: "2rem",
-        alignItems: "center",
-      }}
-    >
-      <div>User ascasasc</div>
-
-      <div
-        onClick={handleLogout}
-        style={{
-          padding: "1rem",
-          backgroundColor: "blueviolet",
-          cursor: "pointer",
-        }}
-      >
-        Cerrar sesions
-      </div>
-    </div>
+    <NavBarUserStyle>
+      <NavBarLogo />
+      <LinkContent to={"/login"}>
+        <ButtonPrimary text={"Volver"}></ButtonPrimary>
+      </LinkContent>
+    </NavBarUserStyle>
   );
 };
 

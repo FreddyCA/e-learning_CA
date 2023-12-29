@@ -1,5 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../firebase/Auth";
+import LinkContent from "./LinkContent";
+import { useNavigate } from "react-router-dom";
 
 const NavBarItemsContentStyle = styled.div`
   display: flex;
@@ -61,51 +63,69 @@ const NavBarItemsLinkStyle = styled.a`
     width: 100%;
   }
 `;
-
-import { useAuth } from "../context/authContext";
-import { useEffect, useState } from "react";
+const NavBarItemProfile = styled.span`
+  color: var(--color--textPrimary);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 1rem;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    left: 50%;
+    background-color: var(--color--textPrimary);
+    transition: width 0.3s ease;
+  }
+  &::before {
+    top: 0;
+    transform: translateX(-50%);
+    height: 2.5px;
+  }
+  &::after {
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 2.5px;
+  }
+  &:hover::before,
+  &:hover::after {
+    width: 100%;
+  }
+`;
 
 const ItemLogin = () => {
   return (
-    <Link to="/login" style={{ textDecoration: "none" }}>
+    <LinkContent to="/login">
       <NavBarItemsStyle>
         <NavBarItemsLoginStyle>Iniciar Sesión</NavBarItemsLoginStyle>
       </NavBarItemsStyle>
-    </Link>
+    </LinkContent>
   );
 };
 
-const ItemLoading = () => {
+const ItemLogout = () => {
   return (
-    <NavBarItemsStyle>
-      <NavBarItemsLoginStyle>Cargando</NavBarItemsLoginStyle>
-    </NavBarItemsStyle>
+    <LinkContent to="/">
+      <NavBarItemsStyle>
+        <NavBarItemsLoginStyle>Cerrar Sesión</NavBarItemsLoginStyle>
+      </NavBarItemsStyle>
+    </LinkContent>
   );
 };
 
 const NavBarItems = () => {
   // trayendo lo necesario
-  const { user, logout, loading } = useAuth();
-
-  // manejando el estado de conectado
-  const [loginBtn, setLoginBtn] = useState(null);
+  const { authUser, isLoading, logOut } = useAuth();
 
   const navigate = useNavigate();
-
-  // cerrando la sesion
   const handleLogout = async () => {
-    console.log("serrando sesion");
-    await logout();
+    console.log("cerrando sesión");
+    await logOut();
     navigate("/");
   };
-
-  useEffect(() => {
-    if (loading) {
-      setLoginBtn(true);
-    } else {
-      setLoginBtn(null);
-    }
-  }, [loading]);
 
   return (
     <NavBarItemsContentStyle>
@@ -126,12 +146,17 @@ const NavBarItems = () => {
         <NavBarItemsLinkStyle href="#Contacto">Contacto</NavBarItemsLinkStyle>
       </NavBarItemsStyle>
 
-      {user ? (
-        <NavBarItemsStyle onClick={handleLogout}>
-          <NavBarItemsLoginStyle>Cerrar Sesion</NavBarItemsLoginStyle>
-        </NavBarItemsStyle>
-      ) : loginBtn ? (
-        <ItemLoading />
+      {isLoading === false && authUser ? (
+        <>
+          <LinkContent to="panel-de-usuario">
+            <NavBarItemsStyle>
+              <NavBarItemProfile>Mi Cuenta</NavBarItemProfile>
+            </NavBarItemsStyle>
+          </LinkContent>
+          <div onClick={handleLogout}>
+            <ItemLogout />
+          </div>
+        </>
       ) : (
         <ItemLogin />
       )}

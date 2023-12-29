@@ -1,5 +1,5 @@
 const validations = (name, value, setErrors) => {
-  if (name === "name") {
+  if (name === "name" || name === "lastname") {
     if (!validateEmpty(value)) {
       return updateErrors(name, "No puede estar vacÍo", setErrors);
     }

@@ -8,14 +8,7 @@ import NavBar from "../sections/NavBar";
 import Testimonies from "../sections/Testimonies";
 import Contacto from "../sections/Contacto";
 
-
-import { useAuth } from "../context/authContext";
-
 const Home = () => {
-
-  const {user} = useAuth()
-
-  console.log(user);
   return (
     <>
       <NavBar></NavBar>

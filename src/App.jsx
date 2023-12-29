@@ -2,25 +2,33 @@ import GlobalStyle from "./style/reset";
 import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+// import Register from "./pages/Register";
 import Curso from "./pages/Curso";
+import PageNotFound from "./pages/PageNotFound";
+import { AuthUserProvider } from "./firebase/Auth";
+import Register from "./pages/Register";
 import UserPanel from "./pages/UserPanel";
-import { AuthProvider } from "./context/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-// import AuthProvider from "./context/authContext";
+// import UserPanel from "./pages/UserPanel";
+// import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
     <>
       <GlobalStyle />
-      <AuthProvider>
+      <AuthUserProvider>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/curso:" element={<Curso />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/registro" element={<Register />} />
+          <Route path="*" element={<PageNotFound />} />
+
+          {/* <Route path="/panel-de-usuario" element={<UserPanel />} /> */}
+
+          {/* <Route path="/resetPassword" element={<ResetPassw />} /> */}
           <Route
-            path="/panelUser"
+            path="/panel-de-usuario"
             element={
               <ProtectedRoute>
                 <UserPanel />
@@ -28,7 +36,7 @@ const App = () => {
             }
           />
         </Routes>
-      </AuthProvider>
+      </AuthUserProvider>
     </>
   );
 };
