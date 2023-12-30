@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const ButtonPrimaryStyle = styled.button`
   padding: 1rem;
-  width: 190px;
+  min-width: 190px;
   border: none;
   background-color: var(--color--btnPrimary);
   cursor: pointer;

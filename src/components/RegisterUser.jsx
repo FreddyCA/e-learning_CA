@@ -6,6 +6,7 @@ import validations from "../utils/validations";
 import marcaCheck from "../assets/svg/marcaCheck.svg";
 import { useAuth } from "../firebase/Auth";
 import { useNavigate } from "react-router-dom";
+import RegisterWhitGoogle from "./RegisterWhitGoogle";
 
 const RegisterUserStyle = styled.div`
   background-color: rgb(28, 30, 83);
@@ -121,6 +122,13 @@ const FormCntPasswordButton = styled.img`
   height: 24px;
 `;
 
+const FormTitleContetStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+`;
+
 const initialForm = {
   name: "",
   lastname: "",
@@ -138,6 +146,8 @@ const evaluateErrors = (errors, setStatusSubmit) => {
   const valuesState = Object.values(errors).every((value) => value === true);
   setStatusSubmit(valuesState);
 };
+
+// agregar usuario con google
 
 const RegisterUser = () => {
   const [formData, setFormData] = useState(initialForm);
@@ -170,7 +180,7 @@ const RegisterUser = () => {
     setTimeout(() => {
       setSuccesForm(false);
 
-    //   **redirigir hacia su panel de bienvenida
+      //   **redirigir hacia su panel de bienvenida
       navigate("/");
     }, 5000);
   };
@@ -200,10 +210,15 @@ const RegisterUser = () => {
 
   return (
     <RegisterUserStyle>
-      <RegisterUserText $principal>Bienvenido</RegisterUserText>
-      <RegisterUserText $secondary>
-        Un gran paso hacía el desarrollo
-      </RegisterUserText>
+      <FormTitleContetStyle>
+        <div>
+          <RegisterUserText $principal>Bienvenido</RegisterUserText>
+          <RegisterUserText $secondary>
+            Un gran paso hacía el desarrollo
+          </RegisterUserText>
+        </div>
+        <RegisterWhitGoogle />
+      </FormTitleContetStyle>
 
       <FormCntStyle onSubmit={handleSubmit} autoComplete="on">
         <FormCntInput

@@ -9,6 +9,7 @@ import { useAuth } from "../firebase/Auth";
 import { useNavigate } from "react-router-dom";
 import LinkContent from "./LinkContent";
 import ButtonPrimary from "./ButtonPrimary";
+import LoginWhitGoogle from "./LoginWhitGoogle";
 
 const LoginFormStyle = styled.div`
   background-color: rgb(28, 30, 83);
@@ -133,6 +134,13 @@ const FormCntPasswordButton = styled.img`
   height: 24px;
 `;
 
+const FormTitleContetStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+`;
+
 const initialForm = {
   email: "",
   password: "",
@@ -243,8 +251,16 @@ const LoginForm = ({ setResetPasswordState }) => {
 
   return (
     <LoginFormStyle>
-      <LoginFormText $principal>Bienvenido</LoginFormText>
-      <LoginFormText $secondary>Ingresa tu correo y contraseña</LoginFormText>
+      <FormTitleContetStyle>
+        <div>
+          <LoginFormText $principal>Bienvenido</LoginFormText>
+          <LoginFormText $secondary>
+            Ingresa tu correo y contraseña
+          </LoginFormText>
+        </div>
+        <LoginWhitGoogle />
+      </FormTitleContetStyle>
+
       <FormCntStyle onSubmit={handleSubmit} autoComplete="on">
         <FormCntInput
           type="email"
@@ -310,7 +326,6 @@ const LoginForm = ({ setResetPasswordState }) => {
     </LoginFormStyle>
   );
 };
-
 
 LoginForm.propTypes = {
   setResetPasswordState: PropTypes.func.isRequired,

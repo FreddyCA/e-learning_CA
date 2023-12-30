@@ -6,12 +6,16 @@ import { auth } from "./firebase";
 
 // importanto caracteriticas de auth
 import {
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
+import { useNavigate } from "react-router-dom";
 
 // creando el contexto
 const AuthUserContext = createContext({
@@ -50,6 +54,31 @@ function UserFirebaseAuth() {
         message: error.message,
       });
       setIsLoading(false);
+      navigate("/");
+    }
+  };
+  const navigate = useNavigate();
+
+  // registro de nuevos usuarios con google
+  const registerWithGoogle = async () => {
+    setIsLoading(true);
+    const provider = new GoogleAuthProvider();
+    try {
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+      setAuthUser({
+        uid: user.uid,
+        email: user.email,
+      });
+      setIsLoading(false);
+      setErrorCode(null);
+    } catch (error) {
+      console.error("Error al registrar con Google:", error);
+      setErrorCode({
+        code: error.code,
+        message: error.message,
+      });
+      setIsLoading(false);
     }
   };
 
@@ -69,7 +98,39 @@ function UserFirebaseAuth() {
     setIsLoading(false);
     setErrorCode(null);
   };
-  
+
+  // LOGIN CON GOOGLE
+  const loginWithGoogle = async () => {
+    setIsLoading(true);
+    const provider = new GoogleAuthProvider();
+    try {
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+      // Aquí puedes realizar acciones adicionales después de iniciar sesión con Google si es necesario
+      setAuthUser({
+        uid: user.uid,
+        email: user.email,
+      });
+      setIsLoading(false);
+      setErrorCode(null);
+    } catch (error) {
+      if (
+        error instanceof FirebaseError &&
+        error.code === "auth/cancelled-popup-request"
+      ) {
+        // El usuario cerró la ventana emergente antes de completar la autenticación
+        console.log("Inicio de sesión con Google cancelado por el usuario.");
+      } else {
+        console.error("Error al iniciar sesión con Google:", error);
+        setErrorCode({
+          code: error.code,
+          message: error.message,
+        });
+      }
+      setIsLoading(false);
+    }
+  };
+
   //   reset password
   const resetPassword = async (email) => {
     setIsLoading(true);
@@ -120,8 +181,10 @@ function UserFirebaseAuth() {
     errorCode,
     register,
     login,
+    loginWithGoogle,
     logOut,
     resetPassword,
+    registerWithGoogle,
   };
 }
 
