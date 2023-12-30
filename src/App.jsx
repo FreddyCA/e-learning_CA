@@ -9,6 +9,7 @@ import { AuthUserProvider } from "./firebase/Auth";
 import Register from "./pages/Register";
 import UserPanel from "./pages/UserPanel";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRouteLogin from "./components/ProtectedRouteLogin";
 // import UserPanel from "./pages/UserPanel";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -20,13 +21,27 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/curso:" element={<Curso />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/registro" element={<Register />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRouteLogin>
+                <Login />
+              </ProtectedRouteLogin>
+            }
+          />
+          <Route
+            path="/registro"
+            element={
+              <ProtectedRouteLogin>
+                <Register />
+              </ProtectedRouteLogin>
+            }
+          />
           <Route path="*" element={<PageNotFound />} />
+
 
           {/* <Route path="/panel-de-usuario" element={<UserPanel />} /> */}
 
-          {/* <Route path="/resetPassword" element={<ResetPassw />} /> */}
           <Route
             path="/panel-de-usuario"
             element={

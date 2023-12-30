@@ -40,6 +40,8 @@ function UserFirebaseAuth() {
       );
       const user = userCredential.user;
 
+      
+
       setAuthUser({
         uid: user.uid,
         email: user.email,

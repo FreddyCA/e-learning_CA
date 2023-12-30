@@ -3,6 +3,9 @@ import { initializeApp } from "firebase/app";
 // importamos para authentication
 import { getAuth } from "firebase/auth";
 
+// importamos para firestore
+import { getFirestore } from "firebase/firestore";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAR0_-lrnlZV5j3Spl1dwMjsho85qRZHD0",
   authDomain: "e-learning-ca.firebaseapp.com",
@@ -18,3 +21,6 @@ const app = initializeApp(firebaseConfig);
 
 // obtenemos la referencia getAuth
 export const auth = getAuth(app);
+
+// obtenemos la referencia a firestore
+export const firebaseDB = getFirestore(app)
