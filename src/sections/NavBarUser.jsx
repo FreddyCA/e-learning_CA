@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import NavBarLogo from "../components/NavBarLogo";
 import ButtonPrimary from "../components/ButtonPrimary";
-import LinkContent from "../components/LinkContent";
+import { useNavigate } from "react-router-dom";
 
 const NavBarUserStyle = styled.div`
   height: 100px;
@@ -13,12 +13,17 @@ const NavBarUserStyle = styled.div`
 `;
 
 const NavBarUser = () => {
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   return (
     <NavBarUserStyle>
       <NavBarLogo />
-      <LinkContent to={"/login"}>
+      <div onClick={handleGoBack}>
         <ButtonPrimary text={"Volver"}></ButtonPrimary>
-      </LinkContent>
+      </div>
     </NavBarUserStyle>
   );
 };

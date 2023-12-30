@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import passwordOffImg from "../assets/png/passwordOff.png";
 import passwordOnImg from "../assets/png/passwordOn.png";
@@ -6,6 +7,8 @@ import validations from "../utils/validations";
 import marcaCheck from "../assets/svg/marcaCheck.svg";
 import { useAuth } from "../firebase/Auth";
 import { useNavigate } from "react-router-dom";
+import LinkContent from "./LinkContent";
+import ButtonPrimary from "./ButtonPrimary";
 
 const LoginFormStyle = styled.div`
   background-color: rgb(28, 30, 83);
@@ -34,11 +37,27 @@ const LoginFormText = styled.p`
       font-size: 1rem;
     `}
   ${(props) =>
+    props.$password &&
+    css`
+      font-weight: 300;
+      font-size: 0.875rem;
+      margin: 0 auto;
+      cursor: pointer;
+    `}
+  ${(props) =>
     props.$finally &&
     css`
       font-weight: 300;
       font-size: 0.9rem;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      border-top: 4px solid #004080;
+      padding: 1rem 0 0;
+      width: 100%;
+      margin-top: 1rem;
     `}
 `;
 
@@ -76,13 +95,6 @@ const FormCntError = styled.span`
   margin-bottom: 1rem;
   font-size: 0.875rem;
   font-weight: 300;
-  padding: 0 1rem;
-`;
-
-const FormCntSucces = styled.span`
-  color: orange;
-  font-size: 1rem;
-  font-weight: 400;
   padding: 0 1rem;
 `;
 
@@ -135,13 +147,13 @@ const evaluateErrors = (errors, setStatusSubmit) => {
   setStatusSubmit(valuesState);
 };
 
-const LoginForm = () => {
+const LoginForm = ({ setResetPasswordState }) => {
   const [formData, setFormData] = useState(initialForm);
   const [statusPassword, setStatusPassword] = useState(true);
   const [errors, setErrors] = useState(initialErrors);
   const [statusSubmit, setStatusSubmit] = useState(false);
 
-  const [errorGeneral, setErrorGeneral] = useState("");
+  const [messageError, setMessageError] = useState("");
 
   // constrolando el estado
   const handleChange = (e) => {
@@ -157,33 +169,77 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  //   mensaje de correcto
-  const succesMsForm = () => {
-    navigate("/panel-de-usuario");
-  };
-
-  //   obteniendo el register
-  const { login, errorCode } = useAuth();
+  //   obteniendo el login
+  const { login } = useAuth();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (statusSubmit) {
-      console.log("login", formData);
-      await login(formData.email, formData.password);
-      succesMsForm();
+      try {
+        await login(formData.email, formData.password);
+        navigate("/panel-de-usuario");
+      } catch (error) {
+        handleLoginError(error);
+      }
     }
   };
 
-  console.log(errorCode);
+  const errorCodes = [
+    {
+      code: "auth/invalid-email",
+      description:
+        "La dirección de correo electrónico proporcionada no es válida.",
+    },
+    {
+      code: "auth/invalid-credential",
+      description: "Verifique sus datos para iniciar sesión.",
+    },
+    {
+      code: "auth/wrong-password",
+      description: "La contraseña proporcionada es incorrecta.",
+    },
+    {
+      code: "auth/user-not-found",
+      description:
+        "No hay ningún usuario registrado con la dirección de correo electrónico proporcionada.",
+    },
+    {
+      code: "auth/user-disabled",
+      description: "La cuenta de usuario está deshabilitada.",
+    },
+    {
+      code: "auth/network-request-failed",
+      description:
+        "Hubo un error de red durante la operación de autenticación.",
+    },
+    {
+      code: "auth/too-many-requests",
+      description:
+        "Se han realizado demasiados intentos de inicio de sesión fallidos desde esta dirección IP. La cuenta se bloqueará temporalmente.",
+    },
+    {
+      code: "auth/email-already-in-use",
+      description:
+        "La dirección de correo electrónico ya está registrada en otra cuenta.",
+    },
+  ];
+  function handleLoginError(error) {
+    let errorMessage = "Error desconocido";
+    if (error.code) {
+      const errorObject = errorCodes.find((item) => item.code === error.code);
+      if (errorObject) {
+        errorMessage = errorObject.description;
+      }
+    }
+    setMessageError(errorMessage);
+  }
+
+  const handlePassword = () => {
+    setResetPasswordState(false);
+  };
+
   useEffect(() => {
     evaluateErrors(errors, setStatusSubmit);
   }, [errors, statusSubmit]);
-
-  useEffect(() => {
-    if (!errorCode) {
-      return;
-    }
-    setErrorGeneral(errorCode.message);
-  }, [errorCode]);
 
   return (
     <LoginFormStyle>
@@ -237,19 +293,27 @@ const LoginForm = () => {
             />
           )}
         </FormCntButton>
-
-        {/* {!statusSubmit && (
-          <FormCntError>*Todos los campos son requeridos.</FormCntError>
-        )} */}
-
-        {/* {errorGeneral && <FormCntError>{errorGeneral}</FormCntError>} */}
       </FormCntStyle>
 
-      {/* <LoginFormText $finally>
-        ¿Ya tienes una cuenta? Iniciar sesión
-      </LoginFormText> */}
+      <LoginFormText $password onClick={handlePassword}>
+        ¿Olvidó su contraseña?
+      </LoginFormText>
+
+      {messageError && <FormCntError>{messageError}</FormCntError>}
+
+      <LoginFormText $finally>
+        ¿No tienes una cuenta?
+        <LinkContent to={"/registro"}>
+          <ButtonPrimary text={"Crear cuenta"} />
+        </LinkContent>
+      </LoginFormText>
     </LoginFormStyle>
   );
+};
+
+
+LoginForm.propTypes = {
+  setResetPasswordState: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

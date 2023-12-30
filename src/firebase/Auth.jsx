@@ -8,6 +8,7 @@ import { auth } from "./firebase";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
@@ -54,30 +55,26 @@ function UserFirebaseAuth() {
 
   //   login
   const login = async (email, password) => {
-    try {
-      setIsLoading(true);
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      const user = userCredential.user;
-      setAuthUser({
-        uid: user.uid,
-        email: user.email,
-      });
-      setIsLoading(false);
-      setErrorCode(null);
-    } catch (error) {
-      console.log("Error al iniciar sesión", error.message);
-      setAuthUser(null);
-      setErrorCode({
-        code: error.code,
-        message: error.message,
-      });
-      setIsLoading(false);
-    }
+    setIsLoading(true);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    setAuthUser({
+      uid: user.uid,
+      email: user.email,
+    });
+    setIsLoading(false);
+    setErrorCode(null);
+  };
+  
+  //   reset password
+  const resetPassword = async (email) => {
+    setIsLoading(true);
+    await sendPasswordResetEmail(auth, email);
+    setIsLoading(false);
   };
 
   //   cerrando sesión
@@ -124,6 +121,7 @@ function UserFirebaseAuth() {
     register,
     login,
     logOut,
+    resetPassword,
   };
 }
 

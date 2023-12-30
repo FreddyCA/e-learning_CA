@@ -189,7 +189,6 @@ const RegisterUser = () => {
         setErrors(initialErrors);
         setLoadingForm(false);
       } catch (error) {
-        console.log("dentro de register componetn", error);
         setErrorGeneral(errorCode.message);
       }
     }

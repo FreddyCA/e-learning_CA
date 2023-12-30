@@ -122,7 +122,6 @@ const NavBarItems = () => {
 
   const navigate = useNavigate();
   const handleLogout = async () => {
-    console.log("cerrando sesión");
     await logOut();
     navigate("/");
   };
