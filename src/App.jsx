@@ -37,8 +37,9 @@ const App = () => {
               </ProtectedRouteLogin>
             }
           />
-          <Route path="*" element={<PageNotFound />} />
 
+          
+          <Route path="*" element={<PageNotFound />} />
 
           {/* <Route path="/panel-de-usuario" element={<UserPanel />} /> */}
 

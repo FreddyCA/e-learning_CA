@@ -193,7 +193,12 @@ const RegisterUser = () => {
       try {
         console.log("enviando", formData);
         setLoadingForm(true);
-        await register(formData.name, formData.email, formData.password);
+        await register(
+          formData.name,
+          formData.lastname,
+          formData.email,
+          formData.password
+        );
         succesMsForm();
         setFormData(initialForm);
         setErrors(initialErrors);
@@ -207,6 +212,11 @@ const RegisterUser = () => {
   useEffect(() => {
     evaluateErrors(errors, setStatusSubmit);
   }, [errors, statusSubmit]);
+
+  useEffect(() => {
+    if(!errorCode) return
+    setErrorGeneral(errorCode.message)
+  }, [errorCode])
 
   return (
     <RegisterUserStyle>

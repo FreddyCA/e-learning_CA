@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 // importanto referencia
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "./firebase";
+import { auth, firebaseDB } from "./firebase";
 
 // importanto caracteriticas de auth
 import {
@@ -15,7 +15,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
-import { useNavigate } from "react-router-dom";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 // creando el contexto
 const AuthUserContext = createContext({
@@ -30,7 +30,7 @@ function UserFirebaseAuth() {
   const [errorCode, setErrorCode] = useState(null);
 
   //   registro de nuevos usuarios
-  const register = async (name, email, password) => {
+  const register = async (name, lastName, email, password) => {
     try {
       setIsLoading(true);
       const userCredential = await createUserWithEmailAndPassword(
@@ -40,7 +40,17 @@ function UserFirebaseAuth() {
       );
       const user = userCredential.user;
 
-      
+      // SUBIR DATOS A FIRESTORE
+      const userDocRef = doc(firebaseDB, "usuarios", user.uid);
+      await setDoc(userDocRef, {
+        uid: user.uid,
+        name: name.toLowerCase(),
+        lastNme: lastName.toLowerCase(),
+        email: email.toLowerCase(),
+        rol: "usuario",
+        dateInitial: new Date().toString(),
+        dateInitialDB: serverTimestamp(),
+      });
 
       setAuthUser({
         uid: user.uid,
@@ -55,11 +65,10 @@ function UserFirebaseAuth() {
         code: error.code,
         message: error.message,
       });
+      console.log(errorCode);
       setIsLoading(false);
-      navigate("/");
     }
   };
-  const navigate = useNavigate();
 
   // registro de nuevos usuarios con google
   const registerWithGoogle = async () => {
@@ -68,12 +77,25 @@ function UserFirebaseAuth() {
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
+
+      // SUBIR DATOS A FIRESTORE
+      const userDocRef = doc(firebaseDB, "usuarios", user.uid);
+      await setDoc(userDocRef, {
+        uid: user.uid,
+        name: user.displayName.toLowerCase(), // Si Google proporciona el nombre
+        lastName: user.displayName ? user.displayName.toLowerCase() : "", // Si Google proporciona el apellido
+        email: user.email.toLowerCase(),
+        rol: "usuario",
+        dateInitial: new Date().toString(),
+        dateInitialDB: serverTimestamp(),
+      });
+
       setAuthUser({
         uid: user.uid,
         email: user.email,
       });
-      setIsLoading(false);
       setErrorCode(null);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error al registrar con Google:", error);
       setErrorCode({
