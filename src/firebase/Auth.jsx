@@ -40,16 +40,17 @@ function UserFirebaseAuth() {
       );
       const user = userCredential.user;
 
+      const nameUser = `${name.toUpperCase()} ${lastName.toUpperCase()}`;
       // SUBIR DATOS A FIRESTORE
       const userDocRef = doc(firebaseDB, "usuarios", user.uid);
       await setDoc(userDocRef, {
         uid: user.uid,
-        name: name.toLowerCase(),
-        lastNme: lastName.toLowerCase(),
+        name: nameUser,
         email: email.toLowerCase(),
         rol: "usuario",
         dateInitial: new Date().toString(),
         dateInitialDB: serverTimestamp(),
+        courses: false,
       });
 
       setAuthUser({
@@ -82,12 +83,12 @@ function UserFirebaseAuth() {
       const userDocRef = doc(firebaseDB, "usuarios", user.uid);
       await setDoc(userDocRef, {
         uid: user.uid,
-        name: user.displayName.toLowerCase(), // Si Google proporciona el nombre
-        lastName: user.displayName ? user.displayName.toLowerCase() : "", // Si Google proporciona el apellido
+        name: user.displayName.toUpperCase(),
         email: user.email.toLowerCase(),
         rol: "usuario",
         dateInitial: new Date().toString(),
         dateInitialDB: serverTimestamp(),
+        courses: false,
       });
 
       setAuthUser({
@@ -97,7 +98,6 @@ function UserFirebaseAuth() {
       setErrorCode(null);
       setIsLoading(false);
     } catch (error) {
-      console.error("Error al registrar con Google:", error);
       setErrorCode({
         code: error.code,
         message: error.message,
