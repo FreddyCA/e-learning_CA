@@ -23,6 +23,7 @@ const UserPanel = () => {
   // console.log(userUID);
   // console.log(personalData);
   console.log(detailCurso);
+  console.log("panel de usuario", authUser)
 
   useEffect(() => {
     const fetchData = async () => {

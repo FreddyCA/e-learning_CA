@@ -49,6 +49,7 @@ const validations = (name, value, setErrors) => {
   }
 };
 
+// actualiza el estado de error de cada campo
 const updateErrors = (name, errorMessage, setErrors) => {
   setErrors((prevErrors) => ({
     ...prevErrors,
@@ -56,21 +57,30 @@ const updateErrors = (name, errorMessage, setErrors) => {
   }));
 };
 
+// validando el texto ingresado
 const validateTexto = (inputValue) => {
   const regex = /^[A-Za-z0-9À-ÿ\s@/,_.-]+$/;
   return regex.test(inputValue);
 };
+
+// validando formato de correo ingresado
 const validateEmail = (email) => {
   let emailRegex =
     /^[0-9a-zA-Z]+([0-9a-zA-Z ]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$/;
   return emailRegex.test(email);
 };
+
+// validando el tamaño de texto enviado
 const validateLength = (inputValue, maxLength) => {
   return inputValue.length <= maxLength ? false : true;
 };
+
+// verifica campos vacios o con espacios
 const validateEmpty = (text) => {
   return text.trim() !== "";
 };
+
+// validando formato de contraseñas permitido
 const validatePassword = (password) => {
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[-_])[A-Za-z0-9\-_]{8,}$/;
   return passwordRegex.test(password);

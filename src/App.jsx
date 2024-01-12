@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import UserPanel from "./pages/UserPanel";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProtectedRouteLogin from "./components/ProtectedRouteLogin";
+import Cursos from "./pages/Cursos";
 // import UserPanel from "./pages/UserPanel";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -37,6 +38,8 @@ const App = () => {
               </ProtectedRouteLogin>
             }
           />
+
+          <Route path="/cursos" element={<Cursos />} />
 
           
           <Route path="*" element={<PageNotFound />} />

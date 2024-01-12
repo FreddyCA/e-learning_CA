@@ -2,7 +2,6 @@ import styled from "styled-components";
 import ButtonPrimary from "../components/ButtonPrimary";
 import HeaderText from "../components/HeaderText";
 import HeaderImgBg from "../components/HeaderImgBg";
-import { Link } from "react-router-dom";
 
 const HeaderStyleContentStyle = styled.div`
   background-color: var(--color--bgPrincipal);
@@ -30,14 +29,9 @@ const Header = () => {
       <HeaderStyle>
         <HeaderContentInfoStyle>
           <HeaderText />
-          <div style={{ display: "flex", gap: "2rem" }}>
-            <a href="#Cursos">
-              <ButtonPrimary text="Ver curso" />
-            </a>
-            <Link to="/register">
-              <ButtonPrimary text="Inscribirme" />
-            </Link>
-          </div>
+          <a href="#Cursos">
+            <ButtonPrimary text="Ver cursos" />
+          </a>
         </HeaderContentInfoStyle>
         <HeaderImgBg />
       </HeaderStyle>
