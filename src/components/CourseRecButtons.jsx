@@ -15,6 +15,7 @@ const CourseRecButtonsCat = styled.div`
   justify-content: center;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 150ms ease-in-out;
   &:hover {
     background-color: #f5f5aa;
     box-shadow: 0px 4px 6px #bbb;
