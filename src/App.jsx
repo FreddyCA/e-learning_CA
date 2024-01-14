@@ -11,6 +11,7 @@ import UserPanel from "./pages/UserPanel";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProtectedRouteLogin from "./components/ProtectedRouteLogin";
 import Cursos from "./pages/Cursos";
+import AdminPanel from "./pages/AdminPanel";
 // import UserPanel from "./pages/UserPanel";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -41,7 +42,6 @@ const App = () => {
 
           <Route path="/cursos" element={<Cursos />} />
 
-          
           <Route path="*" element={<PageNotFound />} />
 
           {/* <Route path="/panel-de-usuario" element={<UserPanel />} /> */}
@@ -51,6 +51,15 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <UserPanel />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/panel-admin"
+            element={
+              <ProtectedRoute>
+                <AdminPanel />
               </ProtectedRoute>
             }
           />
