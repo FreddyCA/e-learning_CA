@@ -8,17 +8,17 @@ import DefaultAdmin from "../pages/DefaultAdmin";
 
 const AdminContentStyle = styled.div`
   flex: 1;
-  padding: 20px;
+  padding: 4rem 2rem;
   background-color: #e8eff6;
+  overflow-y: auto;
 `;
-
 const AdminContent = ({ selectedItem }) => {
-    const componentes = {
-        Dashboard: <DashboardAdmin />,
-        Cursos: <CursosAdmin />,
-        Estudiantes: <EstudiantesAdmin />,
-        Inscripciones: <InscripcionesAdmin />,
-      };
+  const componentes = {
+    Dashboard: <DashboardAdmin />,
+    Cursos: <CursosAdmin />,
+    Estudiantes: <EstudiantesAdmin />,
+    Inscripciones: <InscripcionesAdmin />,
+  };
   return (
     <AdminContentStyle>
       {componentes[selectedItem] || <DefaultAdmin />}

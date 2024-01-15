@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 
 const SidebarItemsContent = styled.div`
   display: flex;
@@ -79,8 +80,17 @@ const SidebarItems = ({ selectedItem, setSelectedItem }) => {
   ];
 
   const handleItemClick = (item) => {
+    sessionStorage.setItem("itemMenu", item);
     setSelectedItem(item);
   };
+
+  useEffect(() => {
+    const itemMenu = sessionStorage.getItem("itemMenu");
+    if (itemMenu) {
+      return setSelectedItem(itemMenu);
+    }
+  }, [setSelectedItem]);
+
   return (
     <>
       <SidebarItemsContent>
