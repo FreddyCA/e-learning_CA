@@ -4,8 +4,8 @@ import TextInfo from "../components/TextInfo";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { firebaseDB } from "../firebase/firebase";
-import CourseRecItem from "../components/CourseRecItem";
 import ButtonPrimary from "../components/ButtonPrimary";
+import CourseRecAdmin from "../components/CourseRecAdmin";
 
 const CursosAdminStyle = styled.div`
   display: flex;
@@ -85,7 +85,7 @@ const CursosAdmin = () => {
         ) : (
           data.map((item) => (
             <div key={item.id}>
-              <CourseRecItem
+              <CourseRecAdmin
                 key={item.id}
                 // img={imagenPrueba}
                 alt="imagen de prueba s"
