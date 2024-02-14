@@ -44,8 +44,6 @@ const App = () => {
 
           <Route path="*" element={<PageNotFound />} />
 
-          {/* <Route path="/panel-de-usuario" element={<UserPanel />} /> */}
-
           <Route
             path="/panel-de-usuario"
             element={

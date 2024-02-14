@@ -42,8 +42,6 @@ const ButtonModify = styled.button`
   }
 `;
 
-// construir otra interfaz de targetas, y agregar funcionalidad de button
-
 const CursosAdmin = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);

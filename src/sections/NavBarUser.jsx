@@ -38,7 +38,7 @@ const NavBarUser = () => {
     <NavBarUserStyle>
       <NavBarLogo />
       <NavBarUserContenStyle>
-        <NavBarUserName>{authUser.email}</NavBarUserName>
+        <NavBarUserName>{authUser?.email}</NavBarUserName>
         <div onClick={handleGoBack}>
           <ButtonPrimary text={"Volver"}></ButtonPrimary>
         </div>
